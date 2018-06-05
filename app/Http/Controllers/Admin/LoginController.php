@@ -42,6 +42,7 @@ class LoginController extends CommonController
         }
     }
 
+
     public function quit()
     {
         session(['user'=>null]);
