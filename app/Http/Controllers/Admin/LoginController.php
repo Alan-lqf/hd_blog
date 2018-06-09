@@ -8,13 +8,18 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
-require_once 'org/code/Code.class.php';
 
 class LoginController extends CommonController
 {
     public function index()
     {
         return view('admin.login');
+    }
+
+    public function getcode()
+    {
+        $code = new \Code();
+        echo $code->get();
     }
 
     public function code()

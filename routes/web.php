@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::group(['middleware'=>'web', 'prefix'=>'admin', 'namespace'=>'Admin'], function () {
     Route::any('login', 'LoginController@login');
     Route::get('code', 'LoginController@code');
+    Route::get('getcode', 'LoginController@getcode');
 });
 
 
@@ -27,5 +28,6 @@ Route::group(['middleware' => ['web', 'admin.login'],'prefix'=>'admin', 'namespa
     Route::get('info', 'IndexController@info');
     Route::get('quit', 'LoginController@quit');
     Route::any('pass', 'IndexController@pass');
+    Route::resource('category', 'CategoryController');
 });
 
