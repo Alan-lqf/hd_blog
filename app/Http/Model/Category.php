@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected $table='category';
+    public $timestamps=false;
 
     public function tree()
     {
-        $category = $this->all();
+        $category = $this->orderBy('order', 'asc')->get();
         return $this->getTree($category, 'id', 'pid');
     }
 
