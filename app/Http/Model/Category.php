@@ -8,6 +8,7 @@ class Category extends Model
 {
     protected $table='category';
     public $timestamps=false;
+    protected $guarded=[];
 
     public function tree()
     {
@@ -16,11 +17,11 @@ class Category extends Model
     }
 
 
-    public function getTree($data, $id='id', $pid='pid')
+    public function getTree($data, $id='id', $pid='pid', $idp=0)
     {
         $arr =array();
         foreach ($data as $k=>$v){
-            if($v->$pid == 0){
+            if($v->$pid == $idp){
                 $data[$k]['_name'] = $data[$k]['name'];
                 $arr[] = $data[$k];
                 foreach ($data as $m=>$n){

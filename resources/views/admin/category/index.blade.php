@@ -68,8 +68,8 @@
                     <td>{{ $v->title }}</td>
                     <td>{{ $v->view }}</td>
                     <td>
-                        <a href="#">修改</a>
-                        <a href="#">删除</a>
+                        <a href="{{ url('admin/category/'.$v->id.'/edit') }}">修改</a>
+                        <a href="javascript:;" onclick="delCate({{ $v->id }})">删除</a>
                     </td>
                 </tr>
                 @endforeach
@@ -115,10 +115,30 @@
         var order = $(obj).val();
         $.post("{{ url('admin/cate/changeorder') }}", {'_token': '{{ csrf_token() }}', 'id':id, 'order':order}, function (data) {
             if (data.status){
+                location.href = location.href;
                 layer.msg(data.msg, {icon: 5});
             }else{
+                location.href = location.href;
                 layer.msg(data.msg, {icon: 6});
             }
+
+        });
+    }
+
+    function delCate(id) {
+        layer.confirm('您确定要删除这个分类吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.post("{{ url('admin/category/') }}/"+id, {'_method': 'delete', '_token':'{{ csrf_token()}}'}, function (data) {
+                if(!data.status){
+                    location.href = location.href;
+                    layer.msg(data.msg, {icon: 6});
+                }else{
+                    location.href = location.href;
+                    layer.msg(data.msg, {icon: 5});
+                }
+            })
+        }, function(){
 
         });
     }
