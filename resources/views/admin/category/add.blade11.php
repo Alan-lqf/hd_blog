@@ -3,14 +3,14 @@
 <!--面包屑导航 开始-->
 <div class="crumb_warp">
     <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-    <i class="fa fa-home"></i> <a href="{{ url('admin/info') }}">首页</a>  &raquo; 编辑文章
+    <i class="fa fa-home"></i> <a href="{{ url('admin/info') }}">首页</a>  &raquo; 分类管理
 </div>
 <!--面包屑导航 结束-->
 
 <!--结果集标题与导航组件 开始-->
 <div class="result_wrap">
     <div class="result_title">
-        <h3>编辑分类</h3>
+        <h3>添加分类</h3>
         @if(count($errors))
             <div class="mark">
                 @if(is_object($errors))
@@ -33,8 +33,7 @@
 <!--结果集标题与导航组件 结束-->
 
 <div class="result_wrap">
-    <form action="{{ url('admin/category/'.$field->id) }}" method="post">
-        <input type="hidden" name="_method" value="put">
+    <form action="{{ url('admin/category') }}" method="post">
         {{ csrf_field() }}
         <table class="add_tab">
             <tbody>
@@ -42,11 +41,9 @@
                     <th width="120"><i class="require">*</i>父级分类：</th>
                     <td>
                         <select name="pid">
-                            <option value="">==请选择==</option>
+                            <option value="0">==顶级分类==</option>
                             @foreach($data as $d)
-                            <option value="{{ $d->id }}"
-                                @if($d->id == $field['pid']) selected @endif
-                            >{{ $d->name }}</option>
+                            <option value="{{ $d->id }}">{{ $d->name }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -54,33 +51,33 @@
                 <tr>
                     <th><i class="require">*</i>分类名称：</th>
                     <td>
-                        <input type="text" name="name" value="{{ $field->name }}">
+                        <input type="text" name="name">
                         <span><i class="fa fa-exclamation-circle yellow"></i>分类名称必须填写！</span>
                     </td>
                 </tr>
                 <tr>
                     <th>分类标题：</th>
                     <td>
-                        <input type="text" class="lg" name="title" value="{{ $field->title }}">
+                        <input type="text" class="lg" name="title">
                     </td>
                 </tr>
 
                 <tr>
                     <th>关键词：</th>
                     <td>
-                        <textarea name="keywords">{{ $field->keywords }}</textarea>
+                        <textarea name="keywords"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <th>描述：</th>
                     <td>
-                        <textarea name="description">{{ $field->description }}</textarea>
+                        <textarea name="description"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <th><i class="require">*</i>排序：</th>
                     <td>
-                        <input type="text" class="sm" name="order" value="{{ $field->order }}">
+                        <input type="text" class="sm" name="order">
                     </td>
                 </tr>
 

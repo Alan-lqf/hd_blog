@@ -3,7 +3,7 @@
 <!--面包屑导航 开始-->
 <div class="crumb_warp">
     <!--<i class="fa fa-bell"></i> 欢迎使用登陆网站后台，建站的首选工具。-->
-    <i class="fa fa-home"></i> <a href="{{ url('admin/info') }}">首页</a> &raquo; <a href="#">全部分类</a>
+    <i class="fa fa-home"></i> <a href="{{ url('admin/info') }}">首页</a> &raquo; 全部分类
 </div>
 <!--面包屑导航 结束-->
 
@@ -32,11 +32,14 @@
 <!--搜索结果页面 列表 开始-->
 <form action="#" method="post">
     <div class="result_wrap">
+        <div class="result_title">
+            <h3>分类管理</h3>
+        </div>
         <!--快捷导航 开始-->
         <div class="result_content">
             <div class="short_wrap">
-                <a href="#"><i class="fa fa-plus"></i>新增文章</a>
-                <a href="#"><i class="fa fa-recycle"></i>批量删除</a>
+                <a href="{{ url('admin/category/create') }}"><i class="fa fa-plus"></i>添加分类</a>
+                <a href="{{ url('admin/category') }}"><i class="fa fa-recycle"></i>全部分类</a>
                 <a href="{{ url('admin/category') }}"><i class="fa fa-refresh"></i>更新排序</a>
             </div>
         </div>
@@ -111,20 +114,22 @@
 <!--搜索结果页面 列表 结束-->
 
 <script>
+// ajax异步修改排序
     function changeOrder(obj, id) {
         var order = $(obj).val();
         $.post("{{ url('admin/cate/changeorder') }}", {'_token': '{{ csrf_token() }}', 'id':id, 'order':order}, function (data) {
             if (data.status){
-                location.href = location.href;
+                // location.href = location.href;
                 layer.msg(data.msg, {icon: 5});
             }else{
-                location.href = location.href;
+                // location.href = location.href;
                 layer.msg(data.msg, {icon: 6});
             }
 
         });
     }
 
+// ajax异步删除
     function delCate(id) {
         layer.confirm('您确定要删除这个分类吗？', {
             btn: ['确定','取消'] //按钮
@@ -137,9 +142,7 @@
                     location.href = location.href;
                     layer.msg(data.msg, {icon: 5});
                 }
-            })
-        }, function(){
-
+            });
         });
     }
 </script>
